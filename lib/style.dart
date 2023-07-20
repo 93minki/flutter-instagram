@@ -15,8 +15,8 @@ var theme = ThemeData(
       actionsIconTheme: IconThemeData(color: Colors.black),
     ),
     textTheme: const TextTheme(
-      bodyText2: TextStyle(color: Colors.red),
-      bodyText1: TextStyle(color: Colors.blue),
+      bodyMedium: TextStyle(color: Colors.red),
+      bodyLarge: TextStyle(color: Colors.blue),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       selectedItemColor: Colors.black,

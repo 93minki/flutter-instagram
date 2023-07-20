@@ -99,10 +99,10 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        child: Text('+'),
+        child: const Text('+'),
         onPressed: () {
           // showNotification();
-          getPermission();
+          // getPermission();
           showNotification2();
         },
       ),

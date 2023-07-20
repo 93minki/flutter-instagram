@@ -26,7 +26,7 @@ initNotification(context) async {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => Text("New Page"),
+        builder: (context) => const Text("New Page"),
       ),
     );
   });
@@ -75,12 +75,11 @@ showNotification2() async {
   );
 
   notifications.zonedSchedule(
+    // show가 아님.
     2,
     '제목2',
     '내용2',
-    tz.TZDateTime.now(tz.local).add(
-      Duration(seconds: 5),
-    ),
+    makeDate(8, 30, 0), // 매일 8시 30분마다 반복
     NotificationDetails(
       android: androidDetails,
       iOS: iosDetails,
@@ -88,5 +87,51 @@ showNotification2() async {
     androidAllowWhileIdle: true,
     uiLocalNotificationDateInterpretation:
         UILocalNotificationDateInterpretation.absoluteTime,
+    matchDateTimeComponents: DateTimeComponents.time,
   );
+
+  // 주기적으로 알림 띄우기
+  // notifications.periodicallyShow(
+  //   2,
+  //   '제목2',
+  //   '내용2',
+  //   RepeatInterval.daily, // 일일 로그인 보상?
+  //   NotificationDetails(android: androidDetails, iOS: iosDetails),
+  //   androidAllowWhileIdle: true,
+  // );
+
+  // 매일 7시에 알람을 띄우고 싶으면
+  // notifications.zonedSchedule(
+  //   // show가 아님.
+  //   2,
+  //   '제목2',
+  //   '내용2',
+  //   tz.TZDateTime.now(tz.local).add(
+  //     //tz.TZDateTime.now(tz.local) 은 기기의 현재 시각임. (날짜, 시간)
+  //     const Duration(seconds: 2),
+  //   ),
+  //   NotificationDetails(
+  //     android: androidDetails,
+  //     iOS: iosDetails,
+  //   ),
+  //   androidAllowWhileIdle: true,
+  //   uiLocalNotificationDateInterpretation:
+  //       UILocalNotificationDateInterpretation.absoluteTime,
+  //   matchDateTimeComponents: DateTimeComponents.time, // 매일 7시마다.
+  // );
+}
+
+makeDate(hour, min, sec) {
+  var now = tz.TZDateTime.now(tz.local);
+  var when =
+      tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, min, sec);
+  if (when.isBefore(now)) {
+    return when.add(
+      const Duration(
+        days: 1,
+      ),
+    );
+  } else {
+    return when;
+  }
 }
