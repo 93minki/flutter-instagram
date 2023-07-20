@@ -14,6 +14,7 @@ class Store1 extends ChangeNotifier {
         .get(Uri.parse('https://codingapple1.github.io/app/profile.json'));
     var result2 = jsonDecode(result.body);
     profileImage = result2;
+    print(profileImage);
     notifyListeners();
   }
 
