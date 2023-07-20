@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram/screens/upload_screen.dart';
+import 'package:instagram/widgets/notification.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -76,9 +78,19 @@ class _HomeState extends State<Home> {
     });
   }
 
+  getPermission() async {
+    var status = await Permission.scheduleExactAlarm.status;
+    if (status.isDenied) {
+      Permission.scheduleExactAlarm.request();
+
+      // openAppSettings();
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    initNotification(context);
     getData();
     saveData();
   }
@@ -86,28 +98,35 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Text('+'),
+        onPressed: () {
+          // showNotification();
+          getPermission();
+          showNotification2();
+        },
+      ),
       appBar: AppBar(
         actions: [
           IconButton(
             onPressed: () async {
               var picker = ImagePicker();
               var image = await picker.pickImage(source: ImageSource.gallery);
-              if (image != null) {
+              if (image != null && context.mounted) {
                 setState(() {
                   userImage = File(image.path);
                 });
-              }
-
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => UploadScreen(
-                    userImage: userImage,
-                    setUserContent: setUserContent,
-                    addMyData: addMyData,
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UploadScreen(
+                      userImage: userImage,
+                      setUserContent: setUserContent,
+                      addMyData: addMyData,
+                    ),
                   ),
-                ),
-              );
+                );
+              }
             },
             icon: const Icon(Icons.add_box_outlined),
           ),
