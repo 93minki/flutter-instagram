@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "23392353423",
+    "project_id": "fluttergram-77cc0",
+    "storage_bucket": "fluttergram-77cc0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23392353423:android:c4f41af881513fceb144fa",
+        "android_client_info": {
+          "package_name": "com.minki.instagram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "23392353423-0q8vsg4ek2uslfrdca63rgnca5l9kb8h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2wwLFKrhAWkBqx9ubIUHifNOCIGjMYmc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "23392353423-0q8vsg4ek2uslfrdca63rgnca5l9kb8h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "23392353423-dck4pi1q8smig6m1bedn2posrm9iid96.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.minki.instagram"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

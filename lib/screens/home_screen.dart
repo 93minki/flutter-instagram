@@ -83,7 +83,7 @@ class _HomeState extends State<Home> {
     if (status.isDenied) {
       Permission.scheduleExactAlarm.request();
 
-      // openAppSettings();
+      openAppSettings();
     }
   }
 
@@ -102,8 +102,8 @@ class _HomeState extends State<Home> {
         child: const Text('+'),
         onPressed: () {
           // showNotification();
-          // getPermission();
-          showNotification2();
+          getPermission();
+          showNotification();
         },
       ),
       appBar: AppBar(

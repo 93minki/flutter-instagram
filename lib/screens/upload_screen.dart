@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instagram/widgets/Upload.dart';
+import 'package:instagram/widgets/upload.dart';
 
 class UploadScreen extends StatelessWidget {
   final dynamic userImage;

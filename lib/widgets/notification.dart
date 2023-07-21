@@ -8,7 +8,7 @@ final notifications = FlutterLocalNotificationsPlugin();
 initNotification(context) async {
   var androidSetting = const AndroidInitializationSettings('app_icon');
 
-  var iosSetting = const IOSInitializationSettings(
+  var iosSetting = const DarwinInitializationSettings(
     requestAlertPermission: true,
     requestBadgePermission: true,
     requestSoundPermission: true,
@@ -20,7 +20,7 @@ initNotification(context) async {
   );
 
   await notifications.initialize(initializationSettings,
-      onSelectNotification: (payload) {
+      onDidReceiveNotificationResponse: (payload) {
     // 알림 눌렀을 때 원하는 페이지 띄울 수 있음
     // payload가 플러터에서 좀 오류가 있어서 잘 안쓰인다네??
     Navigator.push(
@@ -33,6 +33,7 @@ initNotification(context) async {
 }
 
 showNotification() async {
+  print("show notification");
   var androidDetails = const AndroidNotificationDetails(
     '유니크한 알림 채널 ID',
     '알림종류 설명',
@@ -41,24 +42,48 @@ showNotification() async {
     color: Color.fromARGB(255, 255, 0, 0),
   );
 
-  var iosDetails = const IOSNotificationDetails(
+  var iosDetails = const DarwinNotificationDetails(
     presentAlert: true,
     presentBadge: true,
     presentSound: true,
   );
 
-  notifications.show(
-    1,
-    '제목1',
-    '내용1',
-    NotificationDetails(
-      android: androidDetails,
-      iOS: iosDetails,
-    ),
-  );
+  // 알림 id, 제목, 내용 맘대로 채우기
+  notifications.show(1225, '제목1', '내용1',
+      NotificationDetails(android: androidDetails, iOS: iosDetails));
+  print("end");
 }
 
 showNotification2() async {
+  tz.initializeTimeZones();
+
+  var androidDetails = const AndroidNotificationDetails(
+    '23',
+    '3sec',
+    priority: Priority.high,
+    importance: Importance.max,
+    color: Color.fromARGB(255, 255, 0, 0),
+  );
+
+  var iosDetails = const DarwinNotificationDetails(
+    presentAlert: true,
+    presentBadge: true,
+    presentSound: true,
+  );
+
+  notifications.zonedSchedule(
+    33,
+    '3초뒤에 오는 알람',
+    '내용은 그냥 아무거나',
+    tz.TZDateTime.now(tz.local).add(Duration(seconds: 3)),
+    NotificationDetails(android: androidDetails, iOS: iosDetails),
+    androidAllowWhileIdle: true,
+    uiLocalNotificationDateInterpretation:
+        UILocalNotificationDateInterpretation.absoluteTime,
+  );
+}
+
+showNotification3() async {
   tz.initializeTimeZones();
 
   var androidDetails = const AndroidNotificationDetails(
@@ -68,7 +93,7 @@ showNotification2() async {
     importance: Importance.max,
     color: Color.fromARGB(255, 255, 0, 0),
   );
-  var iosDetails = const IOSNotificationDetails(
+  var iosDetails = const DarwinNotificationDetails(
     presentAlert: true,
     presentBadge: true,
     presentSound: true,
