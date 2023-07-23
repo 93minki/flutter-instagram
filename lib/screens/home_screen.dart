@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram/screens/upload_screen.dart';
 import 'package:instagram/widgets/notification.dart';
+import 'package:instagram/widgets/shop.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -83,7 +84,7 @@ class _HomeState extends State<Home> {
     if (status.isDenied) {
       Permission.scheduleExactAlarm.request();
 
-      openAppSettings();
+      // openAppSettings();
     }
   }
 
@@ -97,6 +98,10 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    // materialApp이 들어있는 context
+    MediaQuery.of(context).size.width; // LP단위 (1cm == 38LP)
+    print(MediaQuery.of(context).textScaleFactor);
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: const Text('+'),
@@ -133,7 +138,12 @@ class _HomeState extends State<Home> {
         ],
         title: const Text("Instagram"),
       ),
-      body: ArticleList(items: data, addItem: addItem),
+      body: [
+        MediaQuery.of(context).size.width > 600
+            ? const Text("Large Screen!")
+            : ArticleList(items: data, addItem: addItem),
+        const Shop()
+      ][tab],
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
@@ -149,5 +159,13 @@ class _HomeState extends State<Home> {
         ],
       ),
     );
+  }
+}
+
+fontSize1(context) {
+  if (MediaQuery.of(context).size.width > 600) {
+    return 30;
+  } else {
+    return 16;
   }
 }

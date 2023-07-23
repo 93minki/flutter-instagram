@@ -33,7 +33,6 @@ initNotification(context) async {
 }
 
 showNotification() async {
-  print("show notification");
   var androidDetails = const AndroidNotificationDetails(
     '유니크한 알림 채널 ID',
     '알림종류 설명',
@@ -51,7 +50,6 @@ showNotification() async {
   // 알림 id, 제목, 내용 맘대로 채우기
   notifications.show(1225, '제목1', '내용1',
       NotificationDetails(android: androidDetails, iOS: iosDetails));
-  print("end");
 }
 
 showNotification2() async {
@@ -75,7 +73,7 @@ showNotification2() async {
     33,
     '3초뒤에 오는 알람',
     '내용은 그냥 아무거나',
-    tz.TZDateTime.now(tz.local).add(Duration(seconds: 3)),
+    tz.TZDateTime.now(tz.local).add(const Duration(seconds: 3)),
     NotificationDetails(android: androidDetails, iOS: iosDetails),
     androidAllowWhileIdle: true,
     uiLocalNotificationDateInterpretation:
